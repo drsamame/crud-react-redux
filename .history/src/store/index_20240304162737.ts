@@ -1,0 +1,19 @@
+import { configureStore } from '@reduxjs/toolkit'
+import usersReducer from './users/slice'
+
+const persistanceMiddleware = (store) => (next) => (action) => {
+  console.log(store)
+  console.log(action)
+  next(action)
+  console.log(store)
+}
+
+export const store = configureStore({
+  reducer: {
+    users: usersReducer
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+})
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
